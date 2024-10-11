@@ -65,7 +65,7 @@ apa_citation <- paste0(apa_citation, "</p>")
 
 ```{=html}
 <html>
-  <style>
+ <style>
     section {
         background: var(--bs-body-bg);
         color: var(--bs-body-color);
@@ -98,16 +98,8 @@ apa_citation <- paste0(apa_citation, "</p>")
           class="altmetric-embed">
         </div>
     </div>
-    <div id="inner">
-      <script type="text/javascript" src="//cdn.plu.mx/widget-summary.js"></script>
-        <a href="https://plu.mx/plum/a/?doi=10.1038/s41597-022-01797-2" 
-          data-orientation="horizontal" 
-          class="plumx-summary" 
-          data-site="plum" 
-          data-hide-when-empty="true">
-        </a>
-    </div>
   </section>
+</html>
 ```
 
 ### Awards & nominations

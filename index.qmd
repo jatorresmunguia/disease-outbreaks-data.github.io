@@ -16,4 +16,3 @@ about:
       href: https://github.com/jatorresmunguia/disease_outbreak_news
 ---
 
-<div class="background"></div>
