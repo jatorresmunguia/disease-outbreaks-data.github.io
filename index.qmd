@@ -1,48 +1,19 @@
 ---
-title: ""
-subtitle: ""
+title: "<h2 style='font-size: 18px; margin-bottom: 5px; margin-top: 5px; line-height: 1;'>A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE</h2>
+<h1 style='font-size: 96px; margin-top: 25px; margin-bottom: 5px; line-height: 0;'>OUTBREAKS</h1>"
+subtitle: "<h6 style='font-size: 15px; color: #00bc8c; margin-top: 60px; line-height: 1;'>OPEN DATA FOR SCIENTIFIC RESEARCH</h6>"
+image: "images/virus-covid-solid.svg"
 format: html
 about:
   template: jolla
   image-width: 7em
   links:
     - icon: twitter
-      text: twitter
+      text: ""
       href: https://x.com/OutbreaksData
     - icon: github
-      text: Github
+      text: ""
       href: https://github.com/jatorresmunguia/disease_outbreak_news
 ---
 
-<style>
-  /* Estilo para el fondo con el GIF */
-  body {
-    margin: 0; /* Elimina márgenes del body */
-    padding: 0; /* Elimina padding del body */
-  }
-
-
-
-  /* Ajustes de fuentes para móviles */
-  @media only screen and (max-width: 600px) {
-    h1 {
-      font-size: 48px; /* Reduce el tamaño en pantallas pequeñas */
-    }
-    h2 {
-      font-size: 16px;
-    }
-    img {
-      width: 50px; /* Ajusta el tamaño de la imagen */
-    }
-  }
-</style>
-
-<div class="content">
-  <img src="images/virus-covid-solid.svg" style="display: block; margin: 0 auto; width: 100px;">
-  <h2 style="font-size: 18px; margin-bottom: 0px; margin-top: 30px;">A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE</h2>
-  <h1 style="font-size: 96px; margin-top: 0px;">OUTBREAKS</h1>
-  <div style="height: 30px;"></div> 
-  <h6 style="font-size: 15px; color: #00bc8c;">OPEN DATA FOR SCIENTIFIC RESEARCH</h6>
-</div>
-
-<div class="background"></div> <!-- Fondo con el GIF -->
+<div class="background"></div>

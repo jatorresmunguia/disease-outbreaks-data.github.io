@@ -32,10 +32,13 @@ website:
       contents:
         - "content/data_analysis/data_explorer.qmd"
         - "content/data_analysis/disease_outbreaks_map.qmd"
-  page-footer:  
+  page-footer:
+    left: >-
+     &#169; 2024 Disease Outbreaks Data project. 
     center: >-
-     &#169; 2024 Disease Outbreaks Data. Licensed under [MIT License]("https://opensource.org/licenses/MIT"). Website built with [R]("https://www.r-project.org/") and [Quarto]("https://quarto.org/") by Juan Armando Torres Munguía.
-     
+     Website built with [R]("https://www.r-project.org/") and [Quarto]("https://quarto.org/") by Dr. J.A. Torres Munguía.
+    right: >-
+     Licensed under [MIT License]("https://opensource.org/licenses/MIT"). 
 format:
   html:
     theme: 

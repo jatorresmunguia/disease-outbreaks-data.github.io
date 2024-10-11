@@ -4,8 +4,6 @@ formspree_form_id: "mrgvzdwl"
 format: html
 ---
 
-Thank you for your interest in the <b>DISEASE OUTBREAKS DATA project</b>. Contact me for queries, collaboration ideas, or comments.
-
 ```{=html}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -58,8 +56,10 @@ button:hover {
 <section class="page-content mw8 center">
   <div class="container">
     <!-- Columna izquierda -->
-<div class="column">
+<div class="column" style="margin-right: 20px;">
   <p class="f5 measure-narrow mv4 lh-copy" style="text-align: center;">
+  <p style="font-size: 22px;"> Thank you for your interest in the <b>DISEASE OUTBREAKS DATA project</b>. <br>
+  Contact me for queries, collaboration ideas, or comments.</p>
     <br>
     <a href="https://x.com/OutbreaksData" class="button" style="margin-right: 20px;" target="_blank">
       <i class="fab fa-twitter" style="font-size: 36px;"></i> 
