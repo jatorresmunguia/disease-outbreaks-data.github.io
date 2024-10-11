@@ -15,21 +15,15 @@ about:
 ---
 
 <style>
-  @media (max-width: 768px) {
+  @media only screen and (max-width: 600px) {
     h1 {
-      font-size: 48px; 
+      font-size: 48px; /* Reduce el tamaño en pantallas pequeñas */
     }
-
     h2 {
       font-size: 16px;
     }
-
-    h6 {
-      font-size: 13px;
-    }
-
     img {
-      width: 80px; 
+      width: 50px; /* Ajusta el tamaño de la imagen */
     }
   }
 </style>
