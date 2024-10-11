@@ -2,7 +2,6 @@
 title: ""
 subtitle: ""
 format: html
-image: "images/virus-covid-solid.svg"
 about:
   template: jolla
   image-width: 7em
@@ -16,6 +15,7 @@ about:
 ---
 
 <div style="text-align: center;">
+  <img src="images/virus-covid-solid.svg" style="display: block; margin: 0 auto; width: 100px;">
   <h2 style="font-size: 18px; margin-bottom: 0px; margin-top: 0px;"> A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE </h2>
   <h1 style="font-size: 96px; margin-top: 0px;"> OUTBREAKS </h1>
   <div style="height: 30px;"></div> 
