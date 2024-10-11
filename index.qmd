@@ -15,10 +15,9 @@ about:
 ---
 
 <style>
-  /* Media query para pantallas más pequeñas */
   @media (max-width: 768px) {
     h1 {
-      font-size: 48px; /* Tamaño reducido para móviles */
+      font-size: 48px; 
     }
 
     h2 {
@@ -30,7 +29,7 @@ about:
     }
 
     img {
-      width: 80px; /* Ajustar el tamaño de la imagen en móviles */
+      width: 80px; 
     }
   }
 </style>
