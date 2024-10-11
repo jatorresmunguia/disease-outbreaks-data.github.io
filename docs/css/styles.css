@@ -61,6 +61,11 @@ table.dataTable tbody tr:nth-child(even) {
   background-color: var(--bs-body-bg); 
   font-size: 14px;
   color: var(--bs-body-color);
+  position: absolute; /* Cambiado a absolute */
+  bottom: 0; /* Asegura que esté en la parte inferior */
+  left: 0; /* Asegura que esté alineado a la izquierda */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  z-index: 10; /* Asegura que el pie de página esté en frente */
 }
 
 .footer a {
@@ -70,4 +75,22 @@ table.dataTable tbody tr:nth-child(even) {
 
 .footer a:hover {
   text-decoration: none;
+}
+
+/* position links */
+div.quarto-about-jolla .about-links {
+  z-index: 10;
+}
+
+/* gif background */
+.background {
+  position: fixed; /* Fija el fondo */
+  top: 0; /* Posiciona en la parte superior */
+  left: 0; /* Posiciona en la parte izquierda */
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100vh; /* Altura total de la ventana */
+  background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJvbThrdm00YWx6a3kycDczNjdvY3VyN3BibHY5YjMxOTQ3NjRhdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3osxYeymtCD76SeQjC/giphy.gif') no-repeat center center fixed; 
+  background-size: cover; /* Ajusta el tamaño del fondo */
+  opacity: 0.15; /* Hace el fondo más transparente */
+  z-index: 1; /* Asegura que el fondo esté detrás de todo el contenido */
 }
