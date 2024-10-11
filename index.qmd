@@ -2,7 +2,7 @@
 title: ""
 subtitle: ""
 format: html
-image: "/images/virus-covid-solid.png"
+image: "images/virus-covid-solid.svg"
 about:
   template: jolla
   image-width: 7em
