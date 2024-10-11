@@ -9,10 +9,11 @@ about:
   image-width: 7em
   links:
     - icon: twitter
-      text: twitter
+      text: ""
       href: https://x.com/OutbreaksData
     - icon: github
-      text: Github
+      text: ""
       href: https://github.com/jatorresmunguia/disease_outbreak_news
 ---
 
+<div class="background"></div>
