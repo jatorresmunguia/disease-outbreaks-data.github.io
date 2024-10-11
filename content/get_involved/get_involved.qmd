@@ -1,0 +1,92 @@
+---
+title: "Get involved"
+formspree_form_id: "mrgvzdwl"
+format: html
+---
+
+Thank you for your interest in the <b>DISEASE OUTBREAKS DATA project</b>. Contact me for queries, collaboration ideas, or comments.
+
+```{=html}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+form {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #414141;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start; 
+}
+
+.column {
+  width: 48%;
+}
+
+.fa {
+  margin-right: 10px;
+}
+</style>
+
+<section class="page-content mw8 center">
+  <div class="container">
+    <!-- Columna izquierda -->
+<div class="column">
+  <p class="f5 measure-narrow mv4 lh-copy" style="text-align: center;">
+    <br>
+    <a href="https://x.com/OutbreaksData" class="button" style="margin-right: 20px;" target="_blank">
+      <i class="fab fa-twitter" style="font-size: 36px;"></i> 
+    </a> 
+    <a href="https://github.com/jatorresmunguia/disease_outbreak_news" class="button" target="_blank">
+      <i class="fab fa-github" style="font-size: 36px;"></i> 
+    </a>
+  </p>
+</div>
+
+    <!-- Columna derecha -->
+<div class="column">
+  <form action="https://formspree.io/f/{{ formspree_form_id }}" method="POST">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea><br>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+  </div>
+</section>
+
+```

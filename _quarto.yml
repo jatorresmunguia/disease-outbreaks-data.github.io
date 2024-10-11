@@ -1,0 +1,49 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "open_data |> disease_outbreaks"
+  search: false
+  page-navigation: true
+  reader-mode: true 
+  favicon: "images/virus-covid-solid.svg"
+  navbar:
+    title: "<span class='navbar-title'>DISEASE<span class='title-line'></span>OUTBREAKS</span>"
+ #   logo: "/images/virus-covid-solid.ico"
+    background: "#00bc8c"
+    foreground: light
+    toggle-position: right
+    right:
+      - text: "About"
+        href: "content/about.qmd"
+      - sidebar:data_analysis
+      - text: "Outreach"
+        href: "content/outreach/outreach.qmd"
+      - text: "Get involved"
+        href: "content/get_involved/get_involved.qmd"
+        
+  sidebar:
+    - id: data_analysis
+      title: "Data and analysis"
+      style: "docked"
+      background: light
+      collapse-level: 3
+      contents:
+        - "content/data_analysis/data_explorer.qmd"
+        - "content/data_analysis/disease_outbreaks_map.qmd"
+       
+format:
+  html:
+    theme: 
+     light: flatly
+     dark: darkly
+    css: "css/styles.css"
+    toc: true
+    fontawesome: true
+    page-layout: full
+
+editor: source
+
+
+  

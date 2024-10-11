@@ -1,0 +1,23 @@
+---
+title: ""
+subtitle: ""
+format: html
+image: "/images/virus-covid-solid.svg"
+about:
+  template: jolla
+  image-width: 7em
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://x.com/OutbreaksData
+    - icon: github
+      text: Github
+      href: https://github.com/jatorresmunguia/disease_outbreak_news
+---
+
+<div style="text-align: center;">
+  <h2 style="font-size: 18px; margin-bottom: 0px; margin-top: 0px;"> A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE </h2>
+  <h1 style="font-size: 96px; margin-top: 0px;"> OUTBREAKS </h1>
+  <div style="height: 30px;"></div> 
+  <h6 style="font-size: 15px; color: #00bc8c;"> OPEN DATA FOR SCIENTIFIC RESEARCH </h6>
+</div>
