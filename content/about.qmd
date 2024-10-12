@@ -1,5 +1,5 @@
 ---
-title: "About the DISEASE OUTBREAKS DATA project"
+title: ""
 ---
 
 ```{r load_data, include=FALSE, message=FALSE, warning=FALSE}
@@ -27,7 +27,7 @@ num_countries <- nlevels(factor(last_version$Country))
 num_diseases <- nlevels(factor(last_version$icd104n))
 
 ```
-
+## About the DISEASE OUTBREAKS DATA project
 The **DISEASE OUTBREAKS DATA** project arose from the need for open, reliable information on pandemic- and epidemic-prone disease outbreaks, offering broad coverage of diseases, time periods, and geography, and ensuring statistical soundness for research purposes.
 
 The dataset is the result of a collaborative effort by a team of researchers from the University of Göttingen, the University of Groningen, and the University of Bordeaux. The project was made possible through financial support from the <a href="https://enlight-eu.org/index.php" target="_blank">ENLIGHT network</a>, the German Academic Exchange Service (DAAD), and the Federal Ministry of Education and Research (BMBF) in Germany.

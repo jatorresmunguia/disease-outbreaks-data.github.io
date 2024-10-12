@@ -1,5 +1,5 @@
 ---
-title: "Data explorer"
+title: ""
 ---
 
 ```{r load_data, include=FALSE, message=FALSE, warning=FALSE}
@@ -28,7 +28,7 @@ num_countries <- nlevels(factor(last_version$Country))
 num_diseases <- nlevels(factor(last_version$icd104n))
 
 ```
-
+## Data explorer
 ::: {.callout-important appearance="simple" collapse="true"}
 ### Methodological note
 The unit of analysis in the database is an **outbreak**, defined as the occurrence of at least one case of a specific disease in a country -or territory- during a particular year. Therefore, a country -or territory- cannot have more than one outbreak of the same disease in the same year, although it may experience outbreaks of different diseases within the same year. A country can only have multiple outbreaks of the same disease if they occur in different years.
