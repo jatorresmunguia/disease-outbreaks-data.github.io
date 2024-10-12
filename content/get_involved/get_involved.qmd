@@ -1,6 +1,6 @@
 ---
 title: ""
-formspree_form_id: "mrgvzdwl"
+formspree_form_id: "xqakkkvr"
 format: html
 ---
 
@@ -25,7 +25,7 @@ You can use this space to contact me for queries, collaboration ideas, or commen
 :::
 
 ::: {.g-col-6 #form}
-<form action="https://formspree.io/f/mrgvzdwl" method="POST" accept-charset="utf-8">
+<form action="https://formspree.io/f/xqakkkvr" method="POST" accept-charset="utf-8">
 
 <label for="full-name">Name</label>
 <input type="text" name="name" id="full-name" class="form-control" placeholder="Your first and last names" required>
