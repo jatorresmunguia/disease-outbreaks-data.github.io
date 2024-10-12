@@ -1,11 +1,103 @@
 /* css styles */
-.quarto-title {
+/* title */
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  margin-bottom: 5px; 
+  margin-top: 5px; 
+  line-height: 1 !important;
+}
+
+/* subtitle */
+.subtitle {
+  font-size: 5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   display: flex;
   flex-direction: column; 
   justify-content: center; 
   align-items: center; 
   width: 100%;
   text-align: center;
+  line-height: 1.25 !important;
+  margin-top: 25px; 
+  margin-bottom: 25px !important;
+}
+
+/* description */
+.description {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center !important;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100%;
+  color: #00bc8c; 
+  margin-top: 60px; 
+  line-height: 1.25 !important;
+}
+
+/* mobile screen */
+@media screen and (max-width: 991.98px) {
+.title {
+  font-size: 1rem; /* Reduce the font size on mobile */
+}
+
+.subtitle {
+  font-size: 3rem; /* Reduce the subtitle size for better fit */
+}
+
+.description {
+  font-size: 0.875rem; /* Reduce the description size */
+  margin-top: 30px; /* Adjust margins for mobile */
+}
+}
+
+/* small mobile screen */
+@media screen and (max-width: 575.98px) {
+.title {
+  font-size: 0.875rem; /* Further reduce the title size */
+}
+
+.subtitle {
+  font-size: 2rem; /* Further reduce the subtitle size */
+}
+
+.description {
+  font-size: 0.75rem; /* Further reduce the description size */
+  margin-top: 20px; /* Adjust the margin */
+}
+}
+
+/* image */
+img[src="images/virus-covid-solid.svg"] {
+  width: 100%;
+  max-width: 7em; /* Initial max size */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* For medium screens (tablets, etc.) */
+@media screen and (max-width: 991.98px) {
+  img[src="images/virus-covid-solid.svg"] {
+    max-width: 5em; /* Reduce image size for medium screens */
+    max-height: 5em; /* Maintain aspect ratio */
+  }
+}
+
+/* For small screens (mobile devices) */
+@media screen and (max-width: 575.98px) {
+  img[src="images/virus-covid-solid.svg"] {
+    max-width: 3em; /* Further reduce image size for small screens */
+    max-height: 3em; /* Maintain aspect ratio */
+  }
 }
 
 /* navbar format */

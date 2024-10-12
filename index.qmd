@@ -1,14 +1,14 @@
 ---
-title: "<h2 style='font-size: 18px; margin-bottom: 5px; margin-top: 5px; line-height: 1;'>A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE</h2>
-<h1 style='font-size: 96px; margin-top: 25px; margin-bottom: 5px; line-height: 0;'>OUTBREAKS</h1>"
-subtitle: "<h6 style='font-size: 15px; color: #00bc8c; margin-top: 60px; line-height: 1;'>OPEN DATA FOR SCIENTIFIC RESEARCH</h6>"
+title: "A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE"
+subtitle: "OUTBREAKS"
+description: "OPEN DATA FOR SCIENTIFIC RESEARCH"
 image: "images/virus-covid-solid.svg"
 format: html
 about:
   template: jolla
   image-width: 7em
   links:
-    - icon: twitter
+    - icon: twitter-x
       text: ""
       href: https://x.com/OutbreaksData
     - icon: github
@@ -17,3 +17,4 @@ about:
 ---
 
 <div class="background"></div>
+

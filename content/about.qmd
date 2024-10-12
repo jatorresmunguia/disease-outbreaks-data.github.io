@@ -47,10 +47,6 @@ The last version of the dataset contains information on **`r nrow(last_version)`
 **Number of diseases included**: `r num_diseases`
 :::
 
-::: {.callout-note appearance="simple" collapse="false"}
-In case of questions, requests, or collaborations, you can contact Dr. Juan Armando Torres Munguia via <a href="https://github.com/jatorresmunguia" target="_blank">GitHub</a>, <a href="https://x.com/jtorresmunguia" target="_blank">X</a>, or <a href="https://juan-torresmunguia.netlify.app/contact/" target="_blank">here</a>. 
-:::
-
 ### Methodology
 #### Source
 The sources for the **disease outbreaks data project** are the <a href="https://www.who.int/emergencies/disease-outbreak-news" target="_blank">Disease Outbreak News (DONs)</a> and the <a href="https://data.who.int/dashboards/covid19" target="_blank">Coronavirus Dashboard</a> produced by the World Health Organization (WHO). This information is issued under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Intergovernmental Organization (CC BY-NC-SA 3.0 IGO) license, which allows users to freely copy, reproduce, reprint, distribute, translate, and adapt WHO materials for non-commercial purposes.

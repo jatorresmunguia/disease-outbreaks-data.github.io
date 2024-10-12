@@ -36,8 +36,7 @@ website:
     left: >-
      &#169; 2024 Disease Outbreaks Data project. 
     center: >-
-     Website built with [R]("https://www.r-project.org/") and [Quarto]("https://quarto.org/") by Dr. J.A. Torres Munguía. <br>
-     Background image "Probiotic Gut Microbe GIF" from [Giphy](https://giphy.com/gifs/gut-microbe-probiotic-syntheticbiology-biology-bacteria-xTiTnpDC0AEuHrIVUs).
+     Website built with [R]("https://www.r-project.org/") and [Quarto]("https://quarto.org/") by Juan Armando Torres Munguía, PhD. Background "Probiotic Gut Microbe GIF" from [Giphy](https://giphy.com/gifs/gut-microbe-probiotic-syntheticbiology-biology-bacteria-xTiTnpDC0AEuHrIVUs).
     right: >-
      Licensed under [MIT License]("https://opensource.org/licenses/MIT"). 
 format:
