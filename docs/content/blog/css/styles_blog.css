@@ -1,0 +1,7 @@
+/* styles for blog */
+
+@media screen and (max-width: 991.98px) {
+    .title {
+        font-size: 2rem;
+    }
+}

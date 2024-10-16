@@ -2,7 +2,8 @@
   {
     "listing": "/content/blog/blog.html",
     "items": [
-      "/content/blog/posts/how_to_maps/index.html"
+      "/content/blog/posts/how_to_maps/index.html",
+      "/content/blog/posts/web_scrapping/index.html"
     ]
   }
 ]

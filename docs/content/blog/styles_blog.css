@@ -1,0 +1,5 @@
+/* Adjust title size and alignment */
+h1.title {
+  font-size: 2em; /* Modify the size as needed */
+  text-align: left;
+}

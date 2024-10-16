@@ -1,6 +1,5 @@
 ---
 title: ""
-description: "This blog is dedicated to helping researchers, data scientists, and public health professionals make the most of the **disease outbreaks data** using R. A range of techniques and tools that allow you to explore, visualize, and analyze the dataset in powerful ways will be shared."
 listing:
   contents: posts
   sort: "date desc"
@@ -23,3 +22,5 @@ title-block-banner: false
 ---
 
 # Blog of the DISEASE OUTBREAKS DATA project
+
+This blog is dedicated to helping researchers, data scientists, and public health professionals make the most of the **disease outbreaks data** using R. A range of techniques and tools that allow you to explore, visualize, and analyze the dataset in powerful ways will be shared.
