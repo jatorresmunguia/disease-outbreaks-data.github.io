@@ -3,7 +3,10 @@ title: "A GLOBAL DATASET OF PANDEMIC- AND EPIDEMIC-PRONE DISEASE"
 subtitle: "OUTBREAKS"
 description: "OPEN DATA FOR SCIENTIFIC RESEARCH"
 image: "images/virus-covid-solid.svg"
-format: html
+format:
+  html:
+    css: "css/styles.css"
+
 about:
   template: jolla
   image-width: 7em
@@ -14,6 +17,7 @@ about:
     - icon: github
       text: ""
       href: https://github.com/jatorresmunguia/disease_outbreak_news
+      
 ---
 
 <div class="background"></div>

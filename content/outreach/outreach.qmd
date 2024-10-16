@@ -1,5 +1,8 @@
 ---
-title: ""
+title: "Outreach"
+format:
+  html:
+    css: "css/styles_outreach.css"
 ---
 
 ```{r setup, include=FALSE}
@@ -57,7 +60,6 @@ if (!is.null(cite_readbib$url)) {
 apa_citation <- paste0(apa_citation, "</p>")
 
 ```
-# Outreach
 
 ### Peer-reviewed publications
 `r apa_citation`

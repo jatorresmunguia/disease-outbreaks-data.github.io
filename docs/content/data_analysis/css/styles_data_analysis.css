@@ -1,0 +1,199 @@
+/* css styles */
+
+/* navbar format */
+.title-line {
+  display: block;
+  width: 100%;
+  height: 0px;
+  margin: 0px;
+  display: table;
+  margin-top: -6px;
+  margin-bottom: -6px;
+}
+
+.navbar-title {
+  font-size: 15px; 
+  font-weight: bold; 
+  line-height: 1;
+}
+
+.navbar-title span {
+  display: block;
+  margin: 0; /* Remove margin to reduce space */
+}
+
+/* navbar height */
+footer.footer .nav-footer, #quarto-header>nav {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+}
+
+/* data explorer */
+.dataTables_wrapper {
+  color: var(--bs-body-color); 
+  background-color: var(--bs-body-bg);  
+}
+
+/* Base row color */
+table.dataTable tbody tr {
+  background-color: rgba(var(--bs-light-rgb), 0.9);  /* Full opacity for odd rows */
+}
+ 
+/* More transparent alternating rows */
+table.dataTable tbody tr:nth-child(even) {
+  background-color: rgba(var(--bs-light-rgb), 0.1);  /* 50% opacity for even rows */
+}
+
+/* format for credits */
+.footer {
+  text-align: center;
+  padding: 0px;
+  background-color: var(--bs-body-bg); 
+  font-size: 14px;
+  color: var(--bs-body-color);
+  position: static; /* Cambiado a static */
+  bottom: 0; /* Asegura que esté en la parte inferior */
+  left: 0; /* Asegura que esté alineado a la izquierda */
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  z-index: 1; /* Asegura que el pie de página esté en frente */
+}
+
+.footer a {
+  color: #00bc8c;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: none;
+}
+
+/* position links */
+div.quarto-about-jolla .about-links {
+  z-index: 10;
+}
+
+/* gif background */
+.background {
+  content: "";
+  position: fixed; /* Fija el fondo */
+  top: 0; /* Posiciona en la parte superior */
+  left: 0; /* Posiciona en la parte izquierda */
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100vh; /* Cubre todo el documento */
+  background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2IybHk4cDZnMDRocGw0amhxeGtpbG16cWJxbXhmZ2YzZDJteHE5dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xTiTnpDC0AEuHrIVUs/giphy-downsized-large.gif') no-repeat center center fixed; 
+  background-size: cover; /* Ajusta el tamaño del fondo */
+  opacity: 0.15; /* Hace el fondo más transparente */
+  z-index: -15; /* Asegura que el fondo esté detrás de todo el contenido */
+}
+
+/* altmetric text */
+.altmetric-embed {
+  color: var(--bs-body-color)
+}
+
+.altmetric-condensed-legend {
+    display: inline-block; /* Asegura que el contenedor ajuste el tamaño de la imagen */
+    background-color: white; /* Color de fondo blanco */
+    border-radius: 50%; /* Hace que el fondo sea circular */
+    overflow: hidden; /* Asegura que la imagen no se desborde */
+    display: flex; /* Centra la imagen dentro del contenedor */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+}
+
+div.altmetric-embed[id^=_altmetric_popover_el] div.altmetric_container div.altmetric-popover-inner .altmetric-popover-content {
+    font-size: 13px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 13px;
+    padding: 8px;
+    background-color: transparent !important;
+    margin: 0
+}
+
+div.altmetric-embed[id^=_altmetric_popover_el] div.altmetric_container a.link-to-altmetric-details-tab {
+    text-decoration: none;
+    color: var(--bs-body-color) !important;
+}
+
+/* Dimensions */
+.__dimensions_badge_embed__ .__dimensions_Badge_Legend_padding.__dimensions_Badge_Legend_always {
+    display: block;
+    margin-left: 10px;
+    padding: 0 10px;
+    float: left;
+    background: transparent !important;
+    color: var(--bs-body-color) !important;
+}
+
+.__dimensions_badge_embed__, .__dimensions_badge_embed__ a, .__dimensions_badge_embed__ a:hover {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: black !important;
+    font-family: 'dimensions-badge', 'Nelvetica Neue', Helvetica, Arial, sans-serif;
+    font-kerning: normal;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    height: auto;
+    line-height: 18px;
+    margin: 0;
+    min-height: auto;
+    min-width: auto;
+    opacity: 1;
+    outline: none;
+    overflow: visible;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    width: auto;
+    vertical-align: middle;
+}
+
+.__dimensions_badge_embed__ .__dimensions_Badge_style_small_circle .__db_score, .__dimensions_badge_embed__ .__dimensions_Badge_style_medium_circle .__db_score, .__dimensions_badge_embed__ .__dimensions_Badge_style_large_circle .__db_score {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    -ms-transform: translateY(-50%) scale(0.5);
+    transform: translate3d(0, -50%, 0) scale(0.5);
+    transition: opacity 500ms cubic-bezier(0.77, 0, 0.175, 1), transform 500ms cubic-bezier(0.77, 0, 0.175, 1);
+    font-family: 'dimensions-badge', Helvetica, Arial, sans-serif;
+    font-size: 45px;
+    text-align: center;
+    will-change: transform, opacity;
+    color: black !important;
+}
+
+.__dimensions_badge_embed__ div {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: var(--bs-body-color) !important;
+    font-family: 'dimensions-badge', 'Nelvetica Neue', Helvetica, Arial, sans-serif;
+    font-kerning: normal;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    height: auto;
+    line-height: 18px;
+    margin: 0;
+    min-height: auto;
+    min-width: auto;
+    opacity: 1;
+    outline: none;
+    overflow: visible;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    width: auto;
+    vertical-align: middle;
+}
+
+.__dimensions_badge_embed__ .__dimensions_Badge_stat_icon {
+    filter: invert(1); 
+}
+
+

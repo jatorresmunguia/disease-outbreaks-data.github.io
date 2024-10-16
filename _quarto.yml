@@ -16,7 +16,7 @@ website:
     toggle-position: right
     right:
       - text: "About"
-        href: "content/about.qmd"
+        href: "content/about/about.qmd"
       - text: "Blog"
         href: "content/blog/blog.qmd"
       - sidebar:data_analysis
@@ -46,7 +46,6 @@ format:
     theme: 
      light: flatly
      dark: darkly
-    css: "css/styles.css"
     toc: true
     fontawesome: true
     page-layout: full
