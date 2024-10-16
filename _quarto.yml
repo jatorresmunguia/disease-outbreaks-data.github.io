@@ -17,6 +17,8 @@ website:
     right:
       - text: "About"
         href: "content/about.qmd"
+      - text: "Blog"
+        href: "content/blog/blog.qmd"
       - sidebar:data_analysis
       - text: "Outreach"
         href: "content/outreach/outreach.qmd"

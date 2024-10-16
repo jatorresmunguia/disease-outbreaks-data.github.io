@@ -1,0 +1,231 @@
+---
+title: "Making interactive maps for disease outbreaks data using leaflet in R"
+author: "Juan Armando Torres Munguía, PhD"
+date: "2024-10-15"
+categories: [leaflet, maps, code]
+image: "image.png"
+title-block-banner: false
+---
+
+## Introduction
+In these notes, you'll learn how to load and visualize **disease outbreaks** data from the project's GitHub repository using **R** and the **Leaflet** library. The data is presented on an interactive map that shows the geographic distribution of disease outbreaks from 2000 to 2023.
+
+## Step 1: Loading packages
+We'll start by loading the necessary libraries.
+```{r load_packages, include=TRUE, message=FALSE, warning=FALSE}
+# Setting up the environment
+Sys.setenv(LANG = "en")
+library(lubridate)
+library(stringi)
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(tidyr)
+library(leaflet)
+library(RColorBrewer)
+library(htmltools)
+library(sf)
+library(bslib)
+library(htmlwidgets)
+
+```
+
+## Step 2: Loading Data from GitHub
+Now, let's fetch the latest disease outbreaks data from the GitHub repository using the GitHub API.
+```{r load_data, include=TRUE, message=FALSE, warning=FALSE}
+# URL to get the latest outbreak file
+url_api <- "https://api.github.com/repos/jatorresmunguia/disease_outbreak_news/contents/Last%20update"
+last_file <- fromJSON(content(GET(url_api), as = "text"))$name[grepl(fromJSON(content(GET(url_api), as = "text"))$name, pattern = paste0("^outbreaks"))]
+
+# Filter the CSV file
+rdata_file <- last_file[grepl(".csv$", last_file)]
+file_name <- basename(rdata_file)
+
+# Load the outbreak data from the CSV file
+outbreaks <- read.csv(paste0("https://raw.githubusercontent.com/jatorresmunguia/disease_outbreak_news/refs/heads/main/Last%20update", "/", rdata_file), row.names = 1, header = TRUE)
+
+```
+
+## Step 3: Transforming the data into a shapefile
+Next, we’ll download and load a shapefile that contains administrative boundaries for countries. We'll use this shapefile to visualize the disease outbreaks by geographic location.
+```{r geo_data, include=TRUE, message=FALSE, warning=FALSE}
+
+# URL for the ZIP file containing the shapefile (administrative boundaries)
+url <- "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/world-administrative-boundaries/exports/shp?lang=en&timezone=America%2FGuatemala"
+
+# Create temporary file for the ZIP
+temp_zip <- tempfile(fileext = ".zip")
+
+# Create a temporary directory to unzip the files
+temp_dir <- tempdir()
+
+# Download the ZIP file
+download.file(url, temp_zip, mode = "wb")
+
+# Unzip the file
+unzip(temp_zip, exdir = temp_dir)
+
+# Find the .shp file
+shp_file <- list.files(temp_dir, pattern = "\\.shp$", full.names = TRUE)
+
+# Load the shapefile into R
+shpsf <- st_read(shp_file)
+
+# Cleaning the shapefile's ISO3 country codes
+shpsf[!is.na(shpsf$iso3) & shpsf$iso3 == "IMY", "iso3"] <- "IMN"
+shpsf[!is.na(shpsf$name) & shpsf$name == "Jersey", "iso3"] <- "JEY"
+```
+
+## Step 4: Merging Data
+Now, we'll merge the disease outbreak data with the shapefile using ISO3 country codes and clean up the dataset.
+```{r merge_data, include=TRUE, message=FALSE, warning=FALSE}
+# Merge the outbreaks data with shapefile by ISO3 country code
+outbreaks <- outbreaks |>
+  mutate(iso3 = case_when(Country == "Bonaire Sint Eustatius and Saba" ~ "BES",
+                          TRUE ~ iso3))
+
+# Define the range of years for which the outbreaks data is available
+rep_year <- length(na.omit(unique(shpsf$iso3)))
+rep_country <- length(1996:2024)
+
+# Create a base dataset with all years and countries
+data_base <- data.frame(iso3 = rep(na.omit(unique(shpsf$iso3)), times = rep_country),
+                        Year = rep(1996:2024, each = rep_year))
+
+# Merge the country names from the shapefile
+country_iso <- na.omit(unique(shpsf[, c("name", "iso3")]))
+data_base <- data_base |>
+  left_join(country_iso, by = "iso3")
+
+# Select relevant columns from the outbreaks data
+outbreaks_sub <- outbreaks |> 
+  select(iso3, Year, icd104n, DONs) |> 
+  mutate(Year = as.integer(Year)) |>
+  mutate(Ones = 1)
+
+# Summarize the outbreaks data by ISO3 code, year, and disease
+outbreaks104n <- outbreaks_sub |> 
+  group_by(iso3, Year, icd104n) |> 
+  summarise(Ones = sum(Ones, na.rm = TRUE), .groups = 'drop') |> 
+  pivot_wider(names_from = icd104n, values_from = Ones, values_fill = 0)
+
+# Merge the summarized outbreaks data with the base dataset
+data_base <- data_base |> 
+  mutate(Country = name) |>
+  select(Country, iso3, Year) |>
+  left_join(outbreaks104n, by = c("iso3", "Year"))
+
+# Replace NA values with 0 and calculate the total outbreaks per country
+data_base <- data_base |> 
+  mutate(across(-c(Country, iso3, Year), ~replace(., is.na(.), 0))) |> 
+  mutate(`All diseases` = rowSums(across(-c(Country, iso3, Year)))) |> 
+  pivot_longer(!c(Country, iso3, Year), names_to = "Disease", values_to = "outbreaks")
+
+```
+
+## Step 5: Filter Data for Analysis
+We'll now filter the data to include only outbreaks between 2000 and 2023 and sum the total number of outbreaks for each country.
+```{r filter_data, include=TRUE, message=FALSE, warning=FALSE}
+# Filter the data to focus on outbreaks from 2000 to 2023
+outbreaks_all <- data_base |> 
+  filter(between(Year, left = 2000, right = 2023)) |>
+  filter(Disease == "All diseases") |>
+  group_by(Country, iso3) |>
+  summarise(outbreaks = sum(outbreaks)) |>
+  right_join(shpsf, by = "iso3") |>
+  st_as_sf()
+
+```
+
+## Step 5: Making the interactive map
+Finally, we'll create an interactive map using Leaflet, color-coded to show the number of outbreaks in each country.
+```{r map_data, include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+# Define the color palette
+mybins <- c(0, 10, 20, 30, 40, 50, 60)
+mypalette <- colorBin(palette = "PuRd", 
+                      domain = outbreaks_all$outbreaks,
+                      na.color = "transparent", bins = mybins)
+
+# Create labels for each country
+mytext <- paste0("<b>", outbreaks_all$name, "</b>", "<br/>",
+                outbreaks_all$outbreaks, " ", "outbreaks"
+                ) |> 
+  lapply(htmltools::HTML)
+
+# Add map title
+tag.map.title <- tags$style(HTML("
+  .leaflet-control.map-title { 
+    left: 50%;  
+    transform: translateX(-50%);
+    text-align: left;
+    padding-left: 10px; 
+    padding-right: 10px; 
+    background: rgba(255,255,255,0.75);
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+  }
+"))
+
+# Create the map
+title <- tags$div(
+  tag.map.title, HTML("Geographic distribution of disease outbreaks, 2000-2023")
+)
+
+leaflet(outbreaks_all, options = leafletOptions(zoomControl = FALSE)) |>
+  addTiles() |> 
+  addProviderTiles(providers$Esri.WorldTopoMap) |>
+  setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    fillColor = ~mypalette(outbreaks),
+    stroke = TRUE,
+    fillOpacity = 0.9,
+    color = "white",
+    weight = 0.3,
+    label = mytext,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "13px",
+      direction = "auto"
+    )
+  ) |>
+  addLegend(
+    pal = mypalette, values = ~outbreaks, opacity = 0.9,
+    title = "Number of outbreaks:",
+    position = "bottomleft"
+  ) |>
+  addControl(title, position = "topleft", className = "map-title") |>
+  onRender("function(el, x) {
+          L.control.zoom({position:'topright'}).addTo(this);
+          }")
+```
+
+Here is the final output
+```{r map_data_plot, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+leaflet(outbreaks_all, options = leafletOptions(zoomControl = FALSE)) |>
+  addTiles() |> 
+  addProviderTiles(providers$Esri.WorldTopoMap) |>
+  setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    fillColor = ~mypalette(outbreaks),
+    stroke = TRUE,
+    fillOpacity = 0.9,
+    color = "white",
+    weight = 0.3,
+    label = mytext,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "13px",
+      direction = "auto"
+    )
+  ) |>
+  addLegend(
+    pal = mypalette, values = ~outbreaks, opacity = 0.9,
+    title = "Number of outbreaks:",
+    position = "bottomleft"
+  ) |>
+  addControl(title, position = "topleft", className = "map-title") |>
+  onRender("function(el, x) {
+          L.control.zoom({position:'topright'}).addTo(this);
+          }")
+```

@@ -27,18 +27,18 @@ The unit of analysis in the database is an **outbreak**, defined as the occurren
 :::
 
 ::: {.callout-caution appearance="simple" collapse="true"}
-### How to use the disease outbreaks maps?
+### How to use the disease outbreaks map?
 Use your mouse to **zoom in and out** by scrolling, or **click the + and −** buttons on the top right of the map.<br>
 To **pan across the map**, click and hold your mouse while moving it in the desired direction.<br>
 **Hover** over any country to see the specific information that will be displayed in a **pop-up label**.<br>
-The map is **color-coded based on the frequency of outbreaks** in each country. Darker shades indicate a higher number of outbreaks, while lighter shades represent fewer outbreaks.<br>
-The legend on the bottom left shows the number of outbreaks corresponding to each color.
+The map is **color-coded based on the frequency of outbreaks** in each country. Darker shades indicate a higher number of outbreaks, while lighter shades represent fewer outbreaks. The **legend on the bottom left** shows the number of outbreaks corresponding to each color. <br>
+To **expand the map**, click the icon in the bottom left corner of the map.
 :::
 
 ::: {.callout-tip appearance="simple" collapse="true"}
 ### Usage notes
-The maps presented here demonstrate the potential use of **disease outbreaks data** for the research community. The first map filters the data by years, while the second highlights an example of filtering by both region and specific disease. <br> 
-By visualizing the geographic distribution of disease outbreaks, these maps allow policymakers to identify the countries most vulnerable to outbreaks and assess their preparedness. This can inform the development of strategies and policies aimed at mitigating the spread of future outbreaks, considering regional susceptibility and resilience. <br> 
+The map presented here demonstrate the potential use of **disease outbreaks data** for the research community.<br> 
+By visualizing the geographic distribution of disease outbreaks, the map allows policymakers to identify the countries most vulnerable to outbreaks and assess their preparedness. This can inform the development of strategies and policies aimed at mitigating the spread of future outbreaks, considering regional susceptibility and resilience. <br> 
 Further research using this database can integrate these findings with other sources to explore the factors driving countries' exposure to pandemic- and epidemic-prone diseases, potentially improving response efforts in the future.
 :::
 
@@ -54,6 +54,7 @@ library(RColorBrewer)
 library(htmlwidgets)
 library(htmltools)
 library(sf)
+library(bslib)
 
 load("data_base_maps.RData")
 
@@ -79,6 +80,7 @@ options(prompt = "R> ", digits = 4, scipen = 999)
 ### A map of the outbreaks occurred from 2000 to 2023 associated with all the diseases
 This map illustrates the global distribution of disease outbreaks that occurred between 2000 and 2023, encompassing all reported diseases. It provides a comprehensive overview of the regions most affected by outbreaks over the last two decades, allowing for an intuitive comparison of disease impact across different countries and regions. <br>
 Notably, there is a higher concentration of disease outbreaks in Sub-Saharan Africa. As discussed in <a href="https://doi.org/10.1038/s41597-022-01797-2" target="_blank">Torres Munguía, Badarau, Díaz Pavez, Martínez-Zarzoso & Wacker (2022)</a>, the infectious diseases primarily driving this pattern include cholera, acute poliomyelitis, meningococcal meningitis, and yellow fever.
+
 ```{r map_outbreaks_all, include=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
 
 title <- tags$div(
@@ -129,9 +131,11 @@ setView(lat = 10, lng = 0, zoom = 2) |>
   addControl(title, position = "topleft", className="map-title") |>
   onRender("function(el, x) {
           L.control.zoom({position:'topright'}).addTo(this);
-          }")
+          }") |>
+  card(full_screen = TRUE)
 
 ```
+
 
 ### A map of the outbreaks occurred in Africa from 1996 to 2023 associated with arthropod-borne viral fevers and viral haemorrhagic fevers
 This map presents the distribution of disease outbreaks across Africa between 1996 and 2023 related to arthropod-borne viral fevers and viral haemorrhagic fevers. Arthropod-borne viral fevers (also known as arboviral diseases) are infections caused by viruses transmitted through bites from infected arthropods, such as mosquitoes and ticks. On the other hand, viral haemorrhagic fevers are spread primarily through the interaction of infected rodents and humans. Both of these groups of diseases are highly prone to epidemics and are classified under "A90-A99" in the International Classification of Diseases (ICD-10). <br>
