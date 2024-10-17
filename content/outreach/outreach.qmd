@@ -111,7 +111,7 @@ ENLIGHT Open Science Award 2023 <br>
 Falling Walls Science Breakthrough of the Year 2023 in Science & Innovation Management 
 
 ### Events
-<i>A global dataset of pandemic- and epidemic-prone disease outbreaks</i>. <b>EM-DAT International Disaster Database. Scientific & Technical Advisory Group (STAG) Meeting</b><a>, March 18, 2029. Potchefstroom, South Africa.</a> <a href="https://jatorresmunguia.github.io/slides_dataset_disease_outbreaks_stag_2024/#1" target="_blank">Presentation here!</a>
+<i>A global dataset of pandemic- and epidemic-prone disease outbreaks</i>. <b>EM-DAT International Disaster Database. Scientific & Technical Advisory Group (STAG) Meeting</b><a>, March 18, 2024. Potchefstroom, South Africa.</a> <a href="https://jatorresmunguia.github.io/slides_dataset_disease_outbreaks_stag_2024/#1" target="_blank">Presentation here!</a>
 
 <i>A global dataset of pandemic- and epidemic-prone disease outbreaks</i>. <b>ENLIGHT Open Science Award Ceremony 2023</b><a>, May 11, 2023.</a> <a href="https://www.youtube.com/watch?v=1CrLGoBDyMQ" target="_blank">Presentation here!</a>
 
