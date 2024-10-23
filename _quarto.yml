@@ -34,6 +34,8 @@ website:
       contents:
         - "content/data_analysis/data_explorer.qmd"
         - "content/data_analysis/disease_outbreaks_map.qmd"
+        - text: "Interactive dashboard"
+          href: "content/data_analysis/disease_dashboard.qmd"
   page-footer:
     left: >-
      &#169; 2024 Disease Outbreaks Data project. 

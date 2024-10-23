@@ -52,7 +52,7 @@ The last version of the dataset contains information on **`r nrow(last_version)`
 
 ### Methodology
 #### Source
-The sources for the **disease outbreaks data project** are the <a href="https://www.who.int/emergencies/disease-outbreak-news" target="_blank">Disease Outbreak News (DONs)</a> and the <a href="https://data.who.int/dashboards/covid19" target="_blank">Coronavirus Dashboard</a> produced by the World Health Organization (WHO). This information is issued under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Intergovernmental Organization (CC BY-NC-SA 3.0 IGO) license, which allows users to freely copy, reproduce, reprint, distribute, translate, and adapt WHO materials for non-commercial purposes.
+The sources for the **DISEASE OUTBREAKS DATA** project are the <a href="https://www.who.int/emergencies/disease-outbreak-news" target="_blank">Disease Outbreak News (DONs)</a> and the <a href="https://data.who.int/dashboards/covid19" target="_blank">Coronavirus Dashboard</a> produced by the World Health Organization (WHO). This information is issued under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Intergovernmental Organization (CC BY-NC-SA 3.0 IGO) license, which allows users to freely copy, reproduce, reprint, distribute, translate, and adapt WHO materials for non-commercial purposes.
 
 The information from the DONs includes all reports on confirmed acute public health events or potential events of concern that have occurred since 1996. Specifically, DONs include events of:
 
