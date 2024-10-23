@@ -72,7 +72,7 @@ The following figure provides a schematic overview of the data collection and in
   <img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41597-022-01797-2/MediaObjects/41597_2022_1797_Fig1_HTML.png?as=webp" alt="Schematic overview of data collection and integration processes" style="width:100%; height:auto;">
   <figcaption style="text-align: left; font-size: 0.9em;">
     <b>(A)</b> Data collection and database of the DONs; <b>(B)</b> Data collection and database of the Coronavirus Dashboard; <b>(C)</b> Geo-spatial information. <br>
-    <b>Fuente:</b> Torres Munguía, Badarau, Díaz Pavez, Martínez-Zarzoso & Wacker. A global dataset of pandemic- and epidemic-prone disease outbreaks. Sci Data 9, 683 (2022).
+    <b>Source:</b> Torres Munguía, Badarau, Díaz Pavez, Martínez-Zarzoso & Wacker. A global dataset of pandemic- and epidemic-prone disease outbreaks. Sci Data 9, 683 (2022).
     <a href="https://doi.org/10.1038/s41597-022-01797-2" target="_blank"> https://doi.org/10.1038/s41597-022-01797-2</a>
   </figcaption>
 </figure>
