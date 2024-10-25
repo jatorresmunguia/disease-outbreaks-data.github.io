@@ -8,19 +8,54 @@ format:
 ```{r load_data, include=FALSE, message=FALSE, warning=FALSE}
 
 Sys.setenv(LANG = "en")
-library(lubridate)
-library(stringi)
+library(jsonlite)
+library(tidyverse)
+library(leaflet)
 library(httr)
 library(jsonlite)
+library(RColorBrewer)
+library(htmlwidgets)
+library(htmltools)
+library(sf)
+library(bslib)
 
+# Unique DONs
+# Define the GitHub raw content URL
 url_api <- "https://api.github.com/repos/jatorresmunguia/disease_outbreak_news/contents/Last%20update"
 last_file <- fromJSON(content(GET(url_api), as = "text"))$name[grepl(fromJSON(content(GET(url_api), as = "text"))$name, pattern = paste0("^outbreaks"))]
 
 rdata_file <- last_file[grepl(".csv$", last_file)]
 file_name <- basename(rdata_file)
+date_string <- sub(".*_(\\d{2})(\\d{2})(\\d{4}).*", "\\1-\\2-\\3", file_name)
+date_obj <- dmy(date_string)
 
-last_version <- read.csv(paste0("https://raw.githubusercontent.com/jatorresmunguia/disease_outbreak_news/refs/heads/main/Last%20update", "/", rdata_file),
+formatted_date <- format(date_obj, "%d/%m/%Y")  
+formatted_month <- format(date_obj, "%B %d, %Y")     
+
+outbreaks <- read.csv(paste0("https://raw.githubusercontent.com/jatorresmunguia/disease_outbreak_news/refs/heads/main/Last%20update", "/", rdata_file),
                          row.names = 1, header = TRUE)
+
+num_countries <- nlevels(factor(outbreaks$Country))
+num_diseases <- nlevels(factor(outbreaks$icd104n))
+
+outbreaks <- outbreaks |>
+  mutate(across(c(icd104n, iso3, Country), 
+                ~ factor(str_squish(as.character(.)))))
+
+# geographic data all countries
+# Load the shapefile into R
+url_shp <- "/vsicurl/https://github.com/jatorresmunguia/outbreaks_dashboard/raw/main/Data/shp_outbreaks.shp"
+shpsf <- st_read(url_shp, quiet = TRUE)
+
+shpsf_unique <- shpsf |> 
+  st_drop_geometry() |>
+  distinct(iso3, .keep_all = TRUE)
+
+outbreaks <- shpsf_unique |>
+  select(iso3, continent) |>
+  right_join(outbreaks, by = "iso3") 
+
+rm(url_shp, shpsf_unique, date_obj, date_string, file_name, last_file, rdata_file, url_api)
 
 ```
 
@@ -46,20 +81,7 @@ Further research using this database can integrate these findings with other sou
 :::
 
 ```{r map_outbreaks_config, include=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
-library(leaflet)
-library(lubridate)
-library(stringi)
-library(httr)
-library(jsonlite)
-library(tidyverse)
-library(tidyr)
-library(RColorBrewer)
-library(htmlwidgets)
-library(htmltools)
-library(sf)
-library(bslib)
 
-load("data_base_maps.RData")
 
 tag.map.title <- tags$style(HTML("
   .leaflet-control.map-title { 
@@ -90,20 +112,21 @@ title <- tags$div(
   tag.map.title, HTML("Geographic distribution of disease outbreaks, 2000-2023")
 )
 
-outbreaks_all <- data_base |> 
+outbreaks_all <- outbreaks |> 
+  select(-c(continent, Country)) |>
   filter(between(Year, left = 2000, right = 2023)) |>
-  filter(Disease == "All diseases") |>
-  group_by(Country, iso3) |>
-  summarise(outbreaks = sum(outbreaks)) |>
+  group_by(iso3) |>
+  summarise(outbreaks = n(), .groups = 'drop') |>
   right_join(shpsf, by = "iso3") |>
-  st_as_sf() 
+  mutate(outbreaks = replace_na(outbreaks, 0)) |>
+  st_as_sf()
 
 mybins <- c(0, 10, 20, 30, 40, 50, 60)
 mypalette <- colorBin(palette = "PuRd", 
                       domain = outbreaks_all$outbreaks,
                       na.color = "transparent", bins = mybins)
 
-mytext <- paste0("<b>", outbreaks_all$name, "</b>", "<br/>",
+mytext <- paste0("<b>", outbreaks_all$Country, "</b>", "<br/>",
                 outbreaks_all$outbreaks, " ", "outbreaks"
                 ) |>
   lapply(htmltools::HTML)
@@ -139,7 +162,6 @@ setView(lat = 10, lng = 0, zoom = 2) |>
 
 ```
 
-
 ### A map of the outbreaks occurred in Africa from 1996 to 2023 associated with arthropod-borne viral fevers and viral haemorrhagic fevers
 This map presents the distribution of disease outbreaks across Africa between 1996 and 2023 related to arthropod-borne viral fevers and viral haemorrhagic fevers. Arthropod-borne viral fevers (also known as arboviral diseases) are infections caused by viruses transmitted through bites from infected arthropods, such as mosquitoes and ticks. On the other hand, viral haemorrhagic fevers are spread primarily through the interaction of infected rodents and humans. Both of these groups of diseases are highly prone to epidemics and are classified under "A90-A99" in the International Classification of Diseases (ICD-10). <br>
 This map highlights the occurrence of arthropod-borne viral fevers and viral haemorrhagic fevers, including Chikungunya, Dengue, Yellow Fever, Zika Virus, Oropouche Virus, Lassa Fever, Ebola, and Marburg Virus Disease, among others. Many of these diseases are endemic in parts of Africa, leading to recurring outbreaks that pose significant public health challenges. By visualizing the outbreaks of these diseases, this map provides insights into the geographic spread and intensity of these epidemics, allowing for a clearer understanding of regions most affected by arboviral and haemorrhagic fevers over time.
@@ -150,21 +172,23 @@ title <- tags$div(
                       Arthropod-borne viral and viral haemorrhagic fevers in Africa")
   )
 
-outbreaks_arthropod_borne_viral_fevers <- data_base |> 
+outbreaks_arthropod_borne_viral_fevers <- outbreaks |> 
+  select(-c(continent, Country)) |>
   filter(between(Year, left = 1996, right = 2023)) |>
   filter(icd10n == "Arthropod-borne viral fevers and viral haemorrhagic fevers") |>
-  group_by(Country, iso3) |>
-  summarise(outbreaks = sum(outbreaks)) |>
+  group_by(iso3) |>
+  summarise(outbreaks = n(), .groups = 'drop') |>
   right_join(shpsf, by = "iso3") |>
+  mutate(outbreaks = replace_na(outbreaks, 0)) |>
   filter(continent == "Africa") |>
-  st_as_sf() 
+  st_as_sf()
 
 mybins <- c(0, 5, 10, 15, 20, 25)
 mypalette <- colorBin(palette = "PuRd", 
                       domain = outbreaks_arthropod_borne_viral_fevers$outbreaks,
                       na.color = "transparent", bins = mybins)
 
-mytext <- paste0("<b>", outbreaks_arthropod_borne_viral_fevers$name, "</b>", "<br/>",
+mytext <- paste0("<b>", outbreaks_arthropod_borne_viral_fevers$Country, "</b>", "<br/>",
                  outbreaks_arthropod_borne_viral_fevers$outbreaks, " ", "outbreaks"
                  ) |>
   lapply(htmltools::HTML)
