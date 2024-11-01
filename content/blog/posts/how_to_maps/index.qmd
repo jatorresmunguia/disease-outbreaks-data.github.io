@@ -41,7 +41,7 @@ formatted_date <- format(date_obj, "%d/%m/%Y")
 formatted_month <- format(date_obj, "%B %d, %Y")     
 
 outbreaks <- read.csv(paste0("https://raw.githubusercontent.com/jatorresmunguia/disease_outbreak_news/refs/heads/main/Last%20update", "/", rdata_file),
-                         row.names = 1, header = TRUE)
+                      header = TRUE)
 
 outbreaks <- outbreaks |>
   mutate(across(c(icd104n, iso3, Country), 
@@ -166,7 +166,7 @@ formatted_date <- format(date_obj, "%d/%m/%Y")
 formatted_month <- format(date_obj, "%B %d, %Y")     
 
 outbreaks <- read.csv(paste0("https://raw.githubusercontent.com/jatorresmunguia/disease_outbreak_news/refs/heads/main/Last%20update", "/", rdata_file),
-                      row.names = 1, header = TRUE)
+                      header = TRUE)
 
 # Ensure no extra blanks in country names
 outbreaks <- outbreaks |>
