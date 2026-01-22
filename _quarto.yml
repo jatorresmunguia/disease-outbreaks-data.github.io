@@ -45,6 +45,7 @@ website:
      Licensed under <a href="https://choosealicense.com/licenses/mit/#suggest-this-license" target="_blank">MIT License</a>. 
 format:
   html:
+    include-in-header: _head.html
     theme: 
      light: flatly
      dark: darkly
