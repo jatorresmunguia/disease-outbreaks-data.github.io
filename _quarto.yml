@@ -1,7 +1,12 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
 
+execute:
+  freeze: auto
+  
 website:
   title: "open_data |> disease_outbreaks"
   search: false
