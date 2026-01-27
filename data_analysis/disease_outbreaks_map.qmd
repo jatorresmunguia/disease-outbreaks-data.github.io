@@ -1,0 +1,225 @@
+---
+title: "Disease outbreaks map"
+format:
+  html:
+    css: "css/styles_data_analysis.css"
+---
+
+```{r load_data, include=FALSE, message=FALSE, warning=FALSE}
+
+Sys.setenv(LANG = "en")
+library(jsonlite)
+library(tidyverse)
+library(leaflet)
+library(httr)
+library(jsonlite)
+library(RColorBrewer)
+library(htmlwidgets)
+library(htmltools)
+library(sf)
+library(bslib)
+
+# Unique DONs
+# Define the GitHub raw content URL
+url_api <- "https://api.github.com/repos/jatorresmunguia/disease_outbreak_news/contents/Last%20update"
+last_file <- fromJSON(content(GET(url_api), as = "text"))$name[grepl(fromJSON(content(GET(url_api), as = "text"))$name, pattern = paste0("^outbreaks"))]
+
+rdata_file <- last_file[grepl(".csv$", last_file)]
+file_name <- basename(rdata_file)
+date_string <- sub(".*_(\\d{2})(\\d{2})(\\d{4}).*", "\\1-\\2-\\3", file_name)
+date_obj <- dmy(date_string)
+
+formatted_date <- format(date_obj, "%d/%m/%Y")  
+formatted_month <- format(date_obj, "%B %d, %Y")     
+
+outbreaks <- read.csv(paste0("https://raw.githubusercontent.com/jatorresmunguia/disease_outbreak_news/refs/heads/main/Last%20update", "/", rdata_file),
+                         header = TRUE)
+
+num_countries <- nlevels(factor(outbreaks$Country))
+num_diseases <- nlevels(factor(outbreaks$icd104n))
+
+outbreaks <- outbreaks |>
+  mutate(across(c(icd104n, iso3, Country), 
+                ~ factor(str_squish(as.character(.)))))
+
+# geographic data all countries
+# Load the shapefile into R
+url_shp <- "/vsicurl/https://github.com/jatorresmunguia/outbreaks_dashboard/raw/main/Data/shp_outbreaks.shp"
+shpsf <- st_read(url_shp, quiet = TRUE)
+
+shpsf_unique <- shpsf |> 
+  st_drop_geometry() |>
+  distinct(iso3, .keep_all = TRUE)
+
+outbreaks <- shpsf_unique |>
+  select(iso3, continent) |>
+  right_join(outbreaks, by = "iso3") 
+
+rm(url_shp, shpsf_unique, date_obj, date_string, file_name, last_file, rdata_file, url_api)
+
+```
+
+::: {.callout-important appearance="simple" collapse="true"}
+### Methodological note
+The unit of analysis in the database is an **outbreak**, defined as the occurrence of at least one case of a specific disease in a country -or territory- during a particular year. Therefore, a country -or territory- cannot have more than one outbreak of the same disease in the same year, although it may experience outbreaks of different diseases within the same year. A country can only have multiple outbreaks of the same disease if they occur in different years.
+:::
+
+::: {.callout-caution appearance="simple" collapse="true"}
+### How to use the disease outbreaks map?
+Use your mouse to **zoom in and out** by scrolling, or **click the + and −** buttons on the top right of the map.<br>
+To **pan across the map**, click and hold your mouse while moving it in the desired direction.<br>
+**Hover** over any country to see the specific information that will be displayed in a **pop-up label**.<br>
+The map is **color-coded based on the frequency of outbreaks** in each country. Darker shades indicate a higher number of outbreaks, while lighter shades represent fewer outbreaks. The **legend on the bottom left** shows the number of outbreaks corresponding to each color. <br>
+To **expand the map**, click the icon in the bottom left corner of the map.
+:::
+
+::: {.callout-tip appearance="simple" collapse="true"}
+### Usage notes
+The map presented here demonstrate the potential use of **disease outbreaks data** for the research community.<br> 
+By visualizing the geographic distribution of disease outbreaks, the map allows policymakers to identify the countries most vulnerable to outbreaks and assess their preparedness. This can inform the development of strategies and policies aimed at mitigating the spread of future outbreaks, considering regional susceptibility and resilience. <br> 
+Further research using this database can integrate these findings with other sources to explore the factors driving countries' exposure to pandemic- and epidemic-prone diseases, potentially improving response efforts in the future.
+:::
+
+```{r map_outbreaks_config, include=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+
+
+tag.map.title <- tags$style(HTML("
+  .leaflet-control.map-title { 
+    left: 50%;  /* Center horizontally */
+    transform: translateX(-50%);  /* centering */
+    text-align: left;
+    padding-left: 10px; 
+    padding-right: 10px; 
+    background: rgba(255,255,255,0.75);
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+  }
+"))
+
+knitr::opts_chunk$set(echo = TRUE)
+options(prompt = "R> ", digits = 4, scipen = 999)
+
+```
+
+### A map of the outbreaks occurred from 2000 to 2023 associated with all the diseases
+This map illustrates the global distribution of disease outbreaks that occurred between 2000 and 2023, encompassing all reported diseases. It provides a comprehensive overview of the regions most affected by outbreaks over the last two decades, allowing for an intuitive comparison of disease impact across different countries and regions. <br>
+Notably, there is a higher concentration of disease outbreaks in Sub-Saharan Africa. As discussed in <a href="https://doi.org/10.1038/s41597-022-01797-2" target="_blank">Torres Munguía, Badarau, Díaz Pavez, Martínez-Zarzoso & Wacker (2022)</a>, the infectious diseases primarily driving this pattern include cholera, acute poliomyelitis, meningococcal meningitis, and yellow fever.
+
+```{r map_outbreaks_all, include=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+
+title <- tags$div(
+  tag.map.title, HTML("Geographic distribution of disease outbreaks, 2000-2023")
+)
+
+outbreaks_all <- outbreaks |> 
+  select(-c(continent, Country)) |>
+  filter(between(Year, left = 2000, right = 2023)) |>
+  group_by(iso3) |>
+  summarise(outbreaks = n(), .groups = 'drop') |>
+  right_join(shpsf, by = "iso3") |>
+  mutate(outbreaks = replace_na(outbreaks, 0)) |>
+  st_as_sf()
+
+mybins <- c(0, 10, 20, 30, 40, 50, 60)
+mypalette <- colorBin(palette = "PuRd", 
+                      domain = outbreaks_all$outbreaks,
+                      na.color = "transparent", bins = mybins)
+
+mytext <- paste0("<b>", outbreaks_all$Country, "</b>", "<br/>",
+                outbreaks_all$outbreaks, " ", "outbreaks"
+                ) |>
+  lapply(htmltools::HTML)
+
+leaflet(outbreaks_all,
+        options = leafletOptions(zoomControl = FALSE)) |>
+  addTiles() |> 
+  addProviderTiles(providers$Esri.WorldTopoMap) |>
+setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    fillColor = ~ mypalette(outbreaks),
+    stroke = TRUE,
+    fillOpacity = 0.9,
+    color = "white",
+    weight = 0.3,
+    label = mytext,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "13px",
+      direction = "auto"
+      )
+    ) |>
+  addLegend(
+    pal = mypalette, values = ~outbreaks, opacity = 0.9,
+    title = paste0("Number of", "<br/>", "outbreaks:"),
+    position = "bottomleft"
+    ) %>%
+  addControl(title, position = "topleft", className="map-title") |>
+  onRender("function(el, x) {
+          L.control.zoom({position:'topright'}).addTo(this);
+          }") |>
+  card(full_screen = TRUE)
+
+```
+
+### A map of the outbreaks occurred in Africa from 1996 to 2023 associated with arthropod-borne viral fevers and viral haemorrhagic fevers
+This map presents the distribution of disease outbreaks across Africa between 1996 and 2023 related to arthropod-borne viral fevers and viral haemorrhagic fevers. Arthropod-borne viral fevers (also known as arboviral diseases) are infections caused by viruses transmitted through bites from infected arthropods, such as mosquitoes and ticks. On the other hand, viral haemorrhagic fevers are spread primarily through the interaction of infected rodents and humans. Both of these groups of diseases are highly prone to epidemics and are classified under "A90-A99" in the International Classification of Diseases (ICD-10). <br>
+This map highlights the occurrence of arthropod-borne viral fevers and viral haemorrhagic fevers, including Chikungunya, Dengue, Yellow Fever, Zika Virus, Oropouche Virus, Lassa Fever, Ebola, and Marburg Virus Disease, among others. Many of these diseases are endemic in parts of Africa, leading to recurring outbreaks that pose significant public health challenges. By visualizing the outbreaks of these diseases, this map provides insights into the geographic spread and intensity of these epidemics, allowing for a clearer understanding of regions most affected by arboviral and haemorrhagic fevers over time.
+```{r map_outbreaks_viral_fevers, include=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+
+title <- tags$div(
+  tag.map.title, HTML("Geographic distribution of disease outbreaks, 1996-2023 <br> 
+                      Arthropod-borne viral and viral haemorrhagic fevers in Africa")
+  )
+
+outbreaks_arthropod_borne_viral_fevers <- outbreaks |> 
+  select(-c(continent, Country)) |>
+  filter(between(Year, left = 1996, right = 2023)) |>
+  filter(icd10n == "Arthropod-borne viral fevers and viral haemorrhagic fevers") |>
+  group_by(iso3) |>
+  summarise(outbreaks = n(), .groups = 'drop') |>
+  right_join(shpsf, by = "iso3") |>
+  mutate(outbreaks = replace_na(outbreaks, 0)) |>
+  filter(continent == "Africa") |>
+  st_as_sf()
+
+mybins <- c(0, 5, 10, 15, 20, 25)
+mypalette <- colorBin(palette = "PuRd", 
+                      domain = outbreaks_arthropod_borne_viral_fevers$outbreaks,
+                      na.color = "transparent", bins = mybins)
+
+mytext <- paste0("<b>", outbreaks_arthropod_borne_viral_fevers$Country, "</b>", "<br/>",
+                 outbreaks_arthropod_borne_viral_fevers$outbreaks, " ", "outbreaks"
+                 ) |>
+  lapply(htmltools::HTML)
+
+leaflet(outbreaks_arthropod_borne_viral_fevers,
+        options = leafletOptions(zoomControl = FALSE)) |>
+  addTiles() |> 
+  addProviderTiles(providers$Esri.WorldTopoMap) |>
+  setView(lat = 2.8, lng = -9, zoom = 3) |>
+  addPolygons(
+    fillColor = ~ mypalette(outbreaks),
+    stroke = TRUE,
+    fillOpacity = 0.9,
+    color = "white",
+    weight = 0.3,
+    label = mytext,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "13px",
+      direction = "auto"
+    )
+  ) |>
+  addLegend(
+    pal = mypalette, values = ~outbreaks, opacity = 0.9,
+    title = paste0("Number of", "<br/>", "outbreaks:"),
+    position = "bottomleft"
+  ) %>%
+  addControl(title, position = "topleft", className="map-title") |>
+  onRender("function(el, x) {
+          L.control.zoom({position:'topright'}).addTo(this);
+          }")
+
+```
+

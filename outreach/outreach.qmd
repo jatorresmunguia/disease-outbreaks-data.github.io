@@ -1,0 +1,137 @@
+---
+title: "Outreach"
+format:
+  html:
+    css: "css/styles_outreach.css"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(bibtex)
+library(vitae)
+options(tinytex.verbose = TRUE)
+
+cite_readbib <- read.bib("torresmunguia_2022_scidata.bib")
+
+abstract_paper <- paste0("<p> ", gsub("<.*?>", "", cite_readbib$abstract), " </p>")
+   
+format_author <- function(authors) {
+  formatted_authors <- sapply(authors, function(author) {
+    full_names <- paste(author$given, collapse = " ")
+    if (length(author$family) > 1) {
+      family_names <- paste(author$family[1], author$family[2], collapse = " ")
+      full_name <- paste(family_names, full_names, sep = ", ")
+    } else {
+      full_name <- paste(paste(author$family, collapse = ", "), full_names, sep = ", ")
+    }
+if (grepl('Torres Mungu[ií]a', full_name, ignore.case = TRUE)) {
+      full_name <- paste0(full_name, '<a href="https://orcid.org/0000-0003-3432-6941" target="_blank"><img src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png" height="16" width="16" ></a>')
+    }
+    return(full_name)
+  })
+  return(formatted_authors)
+}
+
+author_string <- paste(format_author(cite_readbib$author), collapse = "; ")
+
+apa_citation <- "<p>"
+apa_citation <- paste0(apa_citation, "<b>", author_string, "</b> ")
+apa_citation <- paste0(apa_citation, "(", cite_readbib$year, "). ")
+apa_citation <- paste0(apa_citation, cite_readbib$title, ". ")
+
+if (!is.null(cite_readbib$journal)) {
+  apa_citation <- paste0(apa_citation, "<i>", cite_readbib$journal, "</i>")
+}
+if (!is.null(cite_readbib$volume)) {
+  apa_citation <- paste0(apa_citation, ", ", cite_readbib$volume)
+  }
+if (!is.null(cite_readbib$number)) {
+  apa_citation <- paste0(apa_citation, " (", cite_readbib$number, ")")
+  }
+if (!is.null(cite_readbib$doi)) {
+  apa_citation <- paste0(apa_citation, ". DOI: <a href=\"", cite_readbib$url, "\" target=\"_blank\">", cite_readbib$doi, "</a>")
+}
+if (!is.null(cite_readbib$isbn)) {
+  apa_citation <- paste0(apa_citation, ". ISBN: <a href=\"", cite_readbib$url, "\" target=\"_blank\">", cite_readbib$isbn, "</a>")
+}
+if (!is.null(cite_readbib$url)) {
+  apa_citation <- paste0(apa_citation, ". Retrieved from: <a href=\"", cite_readbib$url, "\" target=\"_blank\">", cite_readbib$url, "</a>")
+}
+apa_citation <- paste0(apa_citation, "</p>")
+
+```
+
+### Peer-reviewed publications
+`r apa_citation`
+
+<a href="cite.bib" download="cite.bib" class="button"> Download .bib file (compatible with LaTeX) </a> 
+
+```{=html}
+<html>
+  <style>
+    section {
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        border-radius: 1em;
+        padding: 1em;
+        left: 50% }
+    #inner {
+        display: inline-block;
+        display: flex;
+        align-items: center;
+        justify-content: center }
+  </style>
+  <section>
+    <div id="inner">
+      <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+        <span style="float:left"; 
+          class="__dimensions_badge_embed__" 
+          data-doi="`r cite_readbib$doi`" 
+          data-hide-zero-citations="true" 
+          data-legend="always">
+        </span>
+      <script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+        <div  style="float:right"; 
+          data-link-target="_blank" 
+          data-badge-details="right" 
+          data-badge-type="medium-donut"
+          data-doi="`r cite_readbib$doi`"   
+          data-condensed="true" 
+          data-hide-no-mentions="true" 
+          class="altmetric-embed">
+        </div>
+    </div>
+  </section>
+</html>
+
+```
+
+### Awards & nominations
+ENLIGHT Open Science Award 2023 <br>
+Falling Walls Science Breakthrough of the Year 2023 in Science & Innovation Management 
+
+### Events
+<i>A global dataset of pandemic- and epidemic-prone disease outbreaks</i>. <b>EM-DAT International Disaster Database. Scientific & Technical Advisory Group (STAG) Meeting</b><a>, March 18, 2024. Potchefstroom, South Africa.</a> <a href="https://jatorresmunguia.github.io/slides_dataset_disease_outbreaks_stag_2024/#1" target="_blank">Presentation here!</a>
+
+<i>A global dataset of pandemic- and epidemic-prone disease outbreaks</i>. <b>ENLIGHT Open Science Award Ceremony 2023</b><a>, May 11, 2023.</a> <a href="https://www.youtube.com/watch?v=1CrLGoBDyMQ" target="_blank">Presentation here!</a>
+
+```{r media_articles_format, include=FALSE}
+### Media articles
+#<i>NEWS TITLE</i> in <b>AUTHOR</b> on <a>DATE</a>. <a href="" target="_blank">Read here!</a> <br>
+```
+
+### Media articles
+<i>Predicting epidemics isn't easy: Researchers have created a global dataset to help</i> in <b>Medical Xpress</b> on <a>April 18, 2023</a>. <a href="https://medicalxpress.com/news/2023-04-epidemics-isnt-easy-global-dataset.html" target="_blank">Read here!</a> <br>
+
+<i>Predicting epidemics isn't easy. We've created a global dataset to help</i> in <b>Beijing Bulletin</b> on <a>April 18, 2023</a>. <a href="https://www.beijingbulletin.com/news/273754661/predicting-epidemics-isnt-easy-weve-created-a-global-dataset-to-help" target="_blank">Read here!</a> <br>
+
+<i>Predicting epidemics isn’t easy. We’ve created a global dataset to help</i> in <b>The Conversation</b> on <a>April 17, 2023</a>. <a href="https://theconversation.com/predicting-epidemics-isnt-easy-weve-created-a-global-dataset-to-help-202857" target="_blank">Read here!</a> <br>
+
+<i>Predicting epidemics isn’t easy. We’ve created a global dataset to help</i> in <b>UNDRR PreventionWeb</b> on <a>April 17, 2023</a>. <a href="https://www.preventionweb.net/news/predicting-epidemics-isnt-easy-weve-created-global-dataset-help" target="_blank">Read here!</a> <br>
+
+<i>Congratulations to the winners of the Open Science Award 2023!</i> in <b>ENLIGHT</b> on <a>March 31, 2023</a>. <a href="https://enlight-eu.org/landing-research-and-innovation/open-science/733-congratulations-to-our-winners-of-the-open-science-award-2023" target="_blank">Read here!</a> <br>
+
+<i>ENLIGHT funded research publishes an accessible, open, global dataset of pandemic- and epidemic-prone disease outbreaks in Springer Nature’s Scientific Data</i> in <b>ENLIGHT</b> on <a>February 06, 2023</a>. <a href="https://enlight-eu.org/university-about-us/news-events/158-news/697-enlight-funded-research-publishes-an-accessible-open-global-dataset-of-pandemic-and-epidemic-prone-disease-outbreaks-in-springer-nature-s-scientific-data" target="_blank">Read here!</a> <br>
+
+<i>From unstructured administrative records to an accessible, open, global dataset of pandemic- and epidemic-prone disease outbreaks</i> in <b>Springer Nature Research Communities</b> on <a>November 11, 2022</a>. <a href="https://communities.springernature.com/posts/from-unstructured-administrative-records-to-an-accessible-open-global-dataset-of-pandemic-and-epidemic-prone-disease-outbreaks" target="_blank">Read here!</a> <br>
+

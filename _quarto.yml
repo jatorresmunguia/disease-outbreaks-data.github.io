@@ -16,14 +16,14 @@ website:
     toggle-position: right
     right:
       - text: "About"
-        href: "content/about/about.qmd"
+        href: "about/about.qmd"
       - text: "Blog"
-        href: "content/blog/blog.qmd"
+        href: "blog/blog.qmd"
       - sidebar:data_analysis
       - text: "Outreach"
-        href: "content/outreach/outreach.qmd"
+        href: "outreach/outreach.qmd"
       - text: "Get involved"
-        href: "content/get_involved/get_involved.qmd"
+        href: "get_involved/get_involved.qmd"
         
   sidebar:
     - id: data_analysis
@@ -32,10 +32,10 @@ website:
       background: light
       collapse-level: 3
       contents:
-        - "content/data_analysis/data_explorer.qmd"
-        - "content/data_analysis/disease_outbreaks_map.qmd"
+        - "data_analysis/data_explorer.qmd"
+        - "data_analysis/disease_outbreaks_map.qmd"
         - text: "Interactive dashboard"
-          href: "content/data_analysis/disease_dashboard.qmd"
+          href: "data_analysis/disease_dashboard.qmd"
   page-footer:
     left: >-
      &#169; 2024 Disease Outbreaks Data project. 
