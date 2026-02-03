@@ -3,12 +3,21 @@ project:
   output-dir: docs
   render:
     - "*.qmd"
+    - "announcement.R"
 
 execute:
-  freeze: auto
-  
+  freeze: true
+
 website:
+  announcement:
+   icon: megaphone
+   dismissable: true
+   content: <span> {{< var announcement.content >}} </span>
+   type: secondary
+   position: below-navbar
   title: "open_data |> disease_outbreaks"
+  site-url: https://disease-outbreaks-data.netlify.app
+  description: OPEN DATA FOR SCIENTIFIC RESEARCH
   search: false
   page-navigation: true
   reader-mode: true 
@@ -38,25 +47,32 @@ website:
       collapse-level: 3
       contents:
         - "data_analysis/data_explorer.qmd"
-        - "data_analysis/disease_outbreaks_map.qmd"
         - text: "Interactive dashboard"
           href: "data_analysis/disease_dashboard.qmd"
   page-footer:
+    background: "#00bc8c"
+    foreground: light
     left: >-
-     &#169; 2024 Disease Outbreaks Data project. 
+     &#169; 2026 Disease Outbreaks Data project. 
     center: >-
-     Website built with <a href="https://www.r-project.org/" target="_blank">R</a> and <a href="https://quarto.org/" target="_blank">Quarto</a> by Juan Armando Torres Munguía, PhD. Background "Probiotic Gut Microbe GIF" from <a href="https://giphy.com/gifs/gut-microbe-probiotic-syntheticbiology-biology-bacteria-xTiTnpDC0AEuHrIVUs" target="_blank">Giphy</a>.
+     Website built with <a href="https://www.r-project.org/" target="_blank">R</a> and <a href="https://quarto.org/" target="_blank">Quarto</a> by <a href="https://juan-torresmunguia.netlify.app/" target="_blank">Juan Armando Torres Munguía, PhD</a>.
     right: >-
      Licensed under <a href="https://choosealicense.com/licenses/mit/#suggest-this-license" target="_blank">MIT License</a>. 
+
 format:
   html:
     include-in-header: _head.html
+    css: "css/styles.css"
     theme: 
      light: flatly
      dark: darkly
     toc: true
     fontawesome: true
     page-layout: full
+    mainfont: "Dosis"
+    link-external-newwindow: true
+    code-link: true
+    highlight-style: tango
 
 editor: source
 

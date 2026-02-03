@@ -1,8 +1,8 @@
 ---
 title: "About the DISEASE OUTBREAKS DATA project"
-format:
-  html:
-    css: "css/styles_about.css" 
+format: html
+execute: 
+  freeze: true
 ---
 
 ```{r load_data, include=FALSE, message=FALSE, warning=FALSE}
@@ -46,7 +46,7 @@ The unit of analysis in the database is an **outbreak**, defined as the occurren
 ### Time & geographic data coverage
 The last version of the dataset contains information on **`r nrow(last_version)` outbreaks**: <br>
 **Temporal coverage**: 01/01/1996 - `r formatted_date` <br>
-**Geographic coverage**: `r num_countries` <br>
+**Geographic coverage**: `r num_countries` countries and territories <br>
 **Number of diseases included**: `r num_diseases`
 :::
 

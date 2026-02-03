@@ -17,7 +17,6 @@ toc: false
 comments: false
 format:
   html:
-    css: "css/styles_blog.css"
     page-layout: full
 title-block-banner: false
 ---

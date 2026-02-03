@@ -1,0 +1,7 @@
+"0",""
+"0","# Create labels for each country"
+"0","mytext <- paste0(""<b>"", outbreaks_all$Country, ""</b>"", ""<br/>"","
+"0","                outbreaks_all$outbreaks, "" "", ""outbreaks"""
+"0","                ) |> "
+"0","  lapply(htmltools::HTML)"
+"0",""

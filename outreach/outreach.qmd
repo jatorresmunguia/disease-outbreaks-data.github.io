@@ -1,8 +1,6 @@
 ---
 title: "Outreach"
-format:
-  html:
-    css: "css/styles_outreach.css"
+format: html
 ---
 
 ```{r setup, include=FALSE}

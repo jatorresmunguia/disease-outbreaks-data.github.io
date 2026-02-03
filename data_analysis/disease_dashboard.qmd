@@ -1,8 +1,8 @@
 ---
 title: ""
-format:
-  html:
-    css: "css/styles_data_analysis.css"
+format: html
+execute: 
+  freeze: true
 ---
 
 Access this dashboard directly on Shinyapps by <a href="https://jatorresmunguia.shinyapps.io/A_global_dataset_of_disease_outbreaks/" target="_blank">clicking here!</a>.

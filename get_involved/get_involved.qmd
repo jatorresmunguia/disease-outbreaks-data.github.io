@@ -1,9 +1,9 @@
 ---
 title: ""
 formspree_form_id: "xqakkkvr"
-format:
-  html:
-    css: "css/styles_get_involved.css"
+format: html
+execute: 
+  freeze: true
 ---
 
 ::: {.grid}

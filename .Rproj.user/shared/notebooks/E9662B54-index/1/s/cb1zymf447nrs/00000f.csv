@@ -1,0 +1,6 @@
+"0",""
+"0","# URL for the ZIP file containing the shapefile (administrative boundaries)"
+"0","url_shp <- ""/vsicurl/https://github.com/jatorresmunguia/outbreaks_dashboard/raw/main/Data/shp_outbreaks.shp"""
+"0",""
+"0","shpsf <- st_read(url_shp, quiet = TRUE)"
+"0",""

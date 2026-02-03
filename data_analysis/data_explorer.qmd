@@ -1,8 +1,8 @@
 ---
 title: "Data explorer"
-format:
-  html:
-    css: "css/styles_data_analysis.css"
+format: html
+execute: 
+  freeze: true
 ---
 
 ```{r load_data, include=FALSE, message=FALSE, warning=FALSE}
@@ -63,7 +63,8 @@ library(tidyverse)
 
 last_version |> 
   select(Country, Year, icd10n, icd104n) |>
-  datatable(colnames = c("Country", "Year", "Type of disease", "Disease"),  
+  datatable(colnames = c("Country", "Year", "Type of disease", "Disease"),
+            style = "bootstrap5",
             rownames = FALSE, 
             filter = 'top',
             class = 'row-border hover stripe',

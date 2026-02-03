@@ -5,9 +5,7 @@ date: "2024-10-15"
 categories: [leaflet, maps, code]
 image: "image.png"
 title-block-banner: false
-format:
-  html:
-    css: "css/styles_blog.css"
+format: html
 ---
 
 In these notes, you'll learn how to load the data from the <a href="https://github.com/jatorresmunguia/disease_outbreak_news" target="_blank">GitHub repository</a> of the **disease outbreaks project** and use the `leaflet` library in **R** to create a choropleth map showing the geographic distribution of disease outbreaks from 1996 to September 30, 2024. 
