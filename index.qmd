@@ -12,13 +12,19 @@ execute:
   warning: false
 ---
 
+<div id="content-overlay">
+
+```{=html}
 <p class="title-main"> 
   <span style="font-size: 3.4em;">A global dataset of pandemic- and epidemic-prone disease outbreaks</span><br>
   <br>
   <span style="font-size: 1.5em; font-weight: bold;">OPEN DATA FOR SCIENTIFIC RESEARCH</span>  
 </p>
+</div>
+```
 
 <div class="background">
+
 <span id="particles-js"></span>
 
 <script src="js/particles.js"></script>
